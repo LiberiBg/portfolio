@@ -1,0 +1,10 @@
+# En-têtes Cloudflare Pages.
+# Cache long pour les assets immuables du design system (polices, CSS, JS).
+/ds/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/ds/*
+  Cache-Control: public, max-age=86400
+
+/styles/*
+  Cache-Control: public, max-age=86400

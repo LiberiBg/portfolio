@@ -1,0 +1,41 @@
+/*
+ * JetBrains Mono — auto-hébergée (DA « full mono »).
+ *
+ * Copyright 2020 The JetBrains Mono Project Authors
+ * (https://github.com/JetBrains/JetBrainsMono)
+ * Licensed under the SIL Open Font License, Version 1.1.
+ * Texte complet de la licence : ./fonts/OFL.txt — attribution : ./fonts/README.md
+ *
+ * Déclarations @font-face pointant vers les fichiers locaux de `./fonts/`, sans
+ * dépendance à un CDN externe (chargement fiable hors-ligne et RGPD-safe). La
+ * famille « JetBrains Mono » correspond aux `font-family` des tokens du design
+ * system. `font-display: swap` affiche d'abord le repli monospace système puis
+ * substitue la police une fois chargée.
+ *
+ * Pour la DA « full mono » : graisses 400 (corps/mono), 500 (optionnelle) et
+ * 700 (titres).
+ */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/jetbrains-mono-400.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/jetbrains-mono-500.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/jetbrains-mono-700.ttf") format("truetype");
+}

@@ -1,0 +1,327 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+
+// ---------------------------------------------------------------------------
+// Contenu du portfolio, dérivé du CV. Édite ces structures pour mettre à jour
+// le site : le markup plus bas les consomme avec les composants ds-*.
+// ---------------------------------------------------------------------------
+
+const experiences = [
+  {
+    role: 'Développeur Backend — Alternance',
+    org: 'La Poste',
+    place: 'Issy-les-Moulineaux',
+    period: 'Sept. 2024 – Sept. 2027',
+    points: [
+      "Conception et déploiement de modules Kafka pour le traitement de données à haut débit entre systèmes d'entreprise (Spring Boot, Java 21).",
+      "Implémentation de solutions de messagerie scalables en production, avec optimisation des performances et de la fiabilité.",
+      "Collaboration avec les équipes de développement pour garantir l'intégration et le respect des standards d'architecture.",
+    ],
+    tags: ['Java 21', 'Spring Boot', 'Kafka'],
+  },
+  {
+    role: "Ingénieur Automatisation de Tests — Alternance",
+    org: 'La Poste',
+    place: 'Issy-les-Moulineaux',
+    period: 'Sept. 2023 – Sept. 2024',
+    points: [
+      "Développement et maintenance de frameworks de tests automatisés (Python, Robot Framework) pour des applications d'entreprise.",
+      "Tests automatisés de systèmes de messagerie Kafka : fiabilité et intégrité des données.",
+      "Création et exécution de suites de tests complètes validant fonctionnalités et performances.",
+    ],
+    tags: ['Python', 'Robot Framework', 'Kafka'],
+  },
+  {
+    role: 'Développeur PowerApps — Stage',
+    org: 'La Poste',
+    place: 'Issy-les-Moulineaux',
+    period: 'Avr. 2023 – Juil. 2023',
+    points: [
+      "Développement d'applications métier répondant à des besoins de processus et contribution aux initiatives de transformation numérique.",
+    ],
+    tags: ['PowerApps', 'Low-code'],
+  },
+];
+
+const education = [
+  {
+    title: "ESIEA — École d'ingénieurs (spécialisation Génie Logiciel)",
+    period: 'Sept. 2024 – Sept. 2027 (prévu) · Paris',
+    desc: "Cursus ingénieur niveau master, Sciences et Technologies du Numérique.",
+  },
+  {
+    title: 'BUT Informatique — IUT de Montreuil',
+    period: 'Sept. 2021 – Juin 2024 · Montreuil',
+    desc: 'Licence en informatique (Bachelor of Science).',
+  },
+  {
+    title: 'Baccalauréat STI2D (SIN) — Lycée La Martinière Monplaisir',
+    period: 'Juin 2021 · Lyon',
+    desc: "Systèmes d'Information et Numérique.",
+  },
+];
+
+const skills = [
+  {
+    group: 'Langages',
+    items: ['Java 21', 'Python', 'JavaScript', 'SQL', 'Bash', 'PHP', 'HTML', 'CSS'],
+  },
+  {
+    group: 'Frameworks & Outils',
+    items: [
+      'Spring Boot',
+      'Angular',
+      'Symfony',
+      'Vue.js',
+      'Bootstrap',
+      'Kafka',
+      'Jenkins',
+      'GitHub Actions',
+      'SonarQube',
+    ],
+  },
+  {
+    group: 'Bases de données',
+    items: ['PostgreSQL', 'MongoDB', 'MySQL', 'SQLite'],
+  },
+  {
+    group: 'Langues',
+    items: ['Français (natif)', 'Anglais (B2)', 'Allemand (B1)'],
+  },
+];
+
+const projects = [
+  {
+    title: 'Design System piloté par tokens',
+    description:
+      "Design system framework-agnostique piloté par des design tokens W3C DTCG : pipeline de build pur compilant les tokens en CSS/JSON/JS, serveur MCP en lecture seule et documentation vivante. Ce portfolio en est une application.",
+    tags: ['TypeScript', 'DTCG', 'MCP'],
+    href: 'https://github.com/LiberiBg',
+  },
+  {
+    title: 'Modules de messagerie Kafka',
+    description:
+      "Modules de traitement de données à haut débit en production chez La Poste, bâtis sur Kafka et Spring Boot avec un fort accent sur la fiabilité et l'observabilité.",
+    tags: ['Kafka', 'Spring Boot', 'Java 21'],
+    href: null,
+  },
+  {
+    title: 'Homelab & auto-hébergement',
+    description:
+      "Projets d'homeserver et d'administration système : services auto-hébergés, automatisation et apprentissage par la pratique. Terrain de jeu pour l'infra et les ops.",
+    tags: ['Linux', 'Self-hosting', 'SysAdmin'],
+    href: null,
+  },
+];
+
+// IMPORTANT : remplace cet identifiant par ton ID de formulaire Formspree.
+// Crée un formulaire sur https://formspree.io puis copie l'ID (ex. "xyzabcde").
+const FORMSPREE_ID = 'VOTRE_ID_FORMSPREE';
+const formspreeAction = `https://formspree.io/f/${FORMSPREE_ID}`;
+---
+
+<BaseLayout title="Mathéo Nguyen — Développeur Backend">
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <Navbar />
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section id="top" class="hero-wrap">
+      <div class="container">
+        <section class="ds-hero" data-ds-reveal>
+          <h1 class="ds-hero__title">Mathéo Nguyen</h1>
+          <p class="ds-hero__subtitle">
+            Développeur backend — systèmes de messagerie d'entreprise &amp;
+            architecture microservices. Je construis des services Kafka
+            fiables à haut débit chez La Poste, en parallèle de mon cursus
+            ingénieur à l'ESIEA.
+          </p>
+          <div class="ds-hero__actions">
+            <a class="ds-button" href="#contact">Me contacter</a>
+            <a class="ds-link ds-link--muted" href="#projets">Voir les projets</a>
+          </div>
+          <div class="hero-meta">
+            <span class="ds-sticker-tag ds-sticker-tag--tilt-left">#java</span>
+            <span class="ds-sticker-tag ds-sticker-tag--accent">#kafka</span>
+            <span class="ds-sticker-tag ds-sticker-tag--rust ds-sticker-tag--tilt-right"
+              >#self-hosting</span
+            >
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ================= À PROPOS ================= -->
+    <section id="a-propos" class="section">
+      <div class="container">
+        <h2 class="section__title">À propos</h2>
+        <p class="section__lead">
+          Ingénieur backend passionné par les systèmes de messagerie
+          d'entreprise et les architectures microservices. Je développe
+          actuellement des solutions Kafka en production chez La Poste tout en
+          préparant mon diplôme d'ingénieur à l'ESIEA.
+        </p>
+        <div class="grid">
+          {education.map((edu) => (
+            <article class="ds-card">
+              <h3 class="ds-card__title">{edu.title}</h3>
+              <p class="ds-card__body">
+                <span class="timeline__meta">{edu.period}</span>
+                <br />
+                {edu.desc}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPÉRIENCES ================= -->
+    <section id="experiences" class="section">
+      <div class="container">
+        <h2 class="section__title">Expériences</h2>
+        <div class="timeline">
+          {experiences.map((exp) => (
+            <article class="ds-card timeline__item" data-ds-reveal>
+              <span class="timeline__meta">
+                {exp.period} · {exp.org}, {exp.place}
+              </span>
+              <h3 class="timeline__role ds-card__title">{exp.role}</h3>
+              <ul class="timeline__list">
+                {exp.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+              <div class="skills__tags">
+                {exp.tags.map((t) => (
+                  <span class="ds-badge ds-badge--accent">{t}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COMPÉTENCES ================= -->
+    <section id="competences" class="section">
+      <div class="container">
+        <h2 class="section__title">Compétences</h2>
+        <div class="skills">
+          {skills.map((s) => (
+            <article class="ds-card">
+              <p class="skills__group-title ds-card__title">{s.group}</p>
+              <div class="skills__tags">
+                {s.items.map((item) => (
+                  <span class="ds-badge">{item}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJETS ================= -->
+    <section id="projets" class="section">
+      <div class="container">
+        <h2 class="section__title">Projets</h2>
+        <div class="grid">
+          {projects.map((proj) => (
+            <article class="ds-project-card" data-ds-tilt>
+              <h3 class="ds-project-card__title">{proj.title}</h3>
+              <p class="ds-project-card__description">{proj.description}</p>
+              <div class="ds-project-card__tags">
+                {proj.tags.map((t) => (
+                  <span class="ds-badge ds-badge--accent">{t}</span>
+                ))}
+              </div>
+              {proj.href && (
+                <p>
+                  <a class="ds-link" href={proj.href} target="_blank" rel="noopener"
+                    >Voir le dépôt →</a
+                  >
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section__title">Contact</h2>
+        <p class="section__lead">
+          Un projet, une opportunité d'alternance ou simplement envie
+          d'échanger ? Écris-moi via ce formulaire.
+        </p>
+
+        <form class="contact-form" action={formspreeAction} method="POST">
+          <label>
+            Nom
+            <input
+              class="ds-input"
+              type="text"
+              name="name"
+              autocomplete="name"
+              required
+              placeholder="Votre nom"
+            />
+          </label>
+          <label>
+            Email
+            <input
+              class="ds-input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder="vous@exemple.com"
+            />
+          </label>
+          <label>
+            Message
+            <textarea
+              class="ds-textarea"
+              name="message"
+              rows="5"
+              required
+              placeholder="Votre message"></textarea>
+          </label>
+          <!-- Anti-spam : champ caché (honeypot) ignoré par Formspree s'il est rempli -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true" />
+          <div class="contact-form__actions">
+            <button class="ds-button" type="submit">Envoyer</button>
+          </div>
+        </form>
+
+        <p class="contact-aside">
+          Ou directement :
+          <a href="mailto:matheo.ngn@gmail.com">matheo.ngn@gmail.com</a>
+          ·
+          <a href="https://linkedin.com/in/matheo-nguyen" target="_blank" rel="noopener"
+            >LinkedIn</a
+          >
+          ·
+          <a href="https://github.com/LiberiBg" target="_blank" rel="noopener">GitHub</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="ds-footer">
+      <p class="ds-footer__text">
+        © {new Date().getFullYear()} Mathéo Nguyen · Construit avec Astro et mon
+        design system.
+      </p>
+      <nav class="ds-footer__links" aria-label="Liens de pied de page">
+        <a class="ds-link ds-link--muted" href="https://github.com/LiberiBg" target="_blank" rel="noopener">GitHub</a>
+        <a class="ds-link ds-link--muted" href="https://linkedin.com/in/matheo-nguyen" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="ds-link ds-link--muted" href="mailto:matheo.ngn@gmail.com">Email</a>
+      </nav>
+    </footer>
+  </main>
+</BaseLayout>

@@ -1,0 +1,1174 @@
+/*
+ * Base_Component — feuille de style des trois composants de base du design
+ * system (Button, Input, Card), en CSS pur, sans framework ni JavaScript requis
+ * pour le rendu (Ref. 6.1, 6.2).
+ *
+ * Toutes les valeurs de couleur, typographie, espacement, bordure et rayon sont
+ * dérivées des variables CSS personnalisées produites par l'émetteur CSS
+ * (`src/emitters/css.ts`), sans aucune valeur codée en dur pour ces catégories
+ * (Ref. 6.3). Chaque référence utilise la syntaxe de repli
+ * `var(--x, <fallback>)` : si la variable est absente ou non définie, le repli
+ * s'applique et le composant demeure affichable (Ref. 6.4).
+ *
+ * Les noms de variables correspondent exactement à ceux émis par
+ * `toCssVarName` à partir des Semantic_Token (p. ex. `color.surface` →
+ * `--color-surface`, `space.inset` → `--space-inset`, `typography.body` →
+ * `--typography-body-font-size`). Le thème actif est reflété par la simple
+ * redéfinition de ces variables (`:root` clair par défaut, `[data-theme="dark"]`
+ * sombre) : aucun rechargement de page n'est nécessaire (Ref. 6.5).
+ */
+
+/* ------------------------------------------------------------------ */
+/* Button                                                              */
+/* ------------------------------------------------------------------ */
+
+.ds-button {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+
+  /* Couleurs dérivées des Semantic_Token d'accent et de surface. */
+  color: var(--color-surface, #ffffff);
+  background-color: var(--color-accent, #3b82f6);
+
+  /* Espacement interne dérivé de `space.inset` / `space.stack`. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure et rayon dérivés des Semantic_Token. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-accent, #3b82f6);
+  border-radius: var(--radius-control, 4px);
+
+  cursor: pointer;
+}
+
+.ds-button:hover {
+  background-color: var(--color-accent-hover, #2563eb);
+  border-color: var(--color-accent-hover, #2563eb);
+}
+
+.ds-button--secondary {
+  color: var(--color-accent, #3b82f6);
+  background-color: var(--color-surface, #ffffff);
+  border-color: var(--color-accent, #3b82f6);
+}
+
+.ds-button--secondary:hover {
+  color: var(--color-accent-hover, #2563eb);
+  background-color: var(--color-surface-muted, #f9fafb);
+  border-color: var(--color-accent-hover, #2563eb);
+}
+
+/* ------------------------------------------------------------------ */
+/* Input                                                               */
+/* ------------------------------------------------------------------ */
+
+.ds-input {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+
+  /* Couleurs de texte et de surface. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  /* Espacement interne dérivé des Semantic_Token d'espacement. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure et rayon dérivés des Semantic_Token. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-text-secondary, #374151);
+  border-radius: var(--radius-control, 4px);
+}
+
+.ds-input::placeholder {
+  color: var(--color-text-secondary, #374151);
+}
+
+.ds-input:focus {
+  outline-width: var(--border-width, 2px);
+  outline-style: solid;
+  outline-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #3b82f6);
+}
+
+.ds-input:disabled {
+  color: var(--color-text-secondary, #374151);
+  background-color: var(--color-surface-muted, #f9fafb);
+}
+
+/* ------------------------------------------------------------------ */
+/* Card                                                                */
+/* ------------------------------------------------------------------ */
+
+.ds-card {
+  /* Surface et texte dérivés des Semantic_Token. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  /* Espacement interne large dérivé de `space.inset`. */
+  padding-top: var(--space-inset, 16px);
+  padding-bottom: var(--space-inset, 16px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure, rayon de conteneur et ombre surélevée dérivés des Semantic_Token. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-surface-muted, #f9fafb);
+  border-radius: var(--radius-container, 8px);
+  box-shadow: var(--shadow-raised, 0px 4px 8px 0px #00000026);
+}
+
+.ds-card__title {
+  /* Typographie dérivée de `typography.heading`. */
+  font-family: var(--typography-heading-font-family, system-ui, sans-serif);
+  font-size: var(--typography-heading-font-size, 24px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-heading-line-height, 1.25);
+  color: var(--color-text-primary, #111827);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-stack, 8px);
+}
+
+.ds-card__body {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+  color: var(--color-text-secondary, #374151);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+}
+
+/* ================================================================== */
+/* IconButton (Tâche 16.2)                                             */
+/* ------------------------------------------------------------------ */
+/* Bouton icône statique en CSS pur, sans JavaScript requis pour le    */
+/* rendu (Ref. 6.1, 6.2). N'affichant qu'une icône, l'accessibilité    */
+/* repose sur un label accessible porté par le markup (`aria-label`,   */
+/* voir index.html). Toutes les valeurs de couleur, espacement,        */
+/* bordure et rayon dérivent des variables CSS avec repli              */
+/* `var(--x, <fallback>)` (Ref. 6.3, 6.4) ; le thème actif est reflété */
+/* par la redéfinition de ces variables, sans rechargement (Ref. 6.5). */
+/* Noms de variables alignés sur `toCssVarName` (src/emitters/css.ts). */
+/* ------------------------------------------------------------------ */
+
+.ds-icon-button {
+  /* Surface carrée centrée autour de l'icône (mots-clés structurels). */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Couleurs dérivées des Semantic_Token d'accent et de surface. */
+  color: var(--color-surface, #ffffff);
+  background-color: var(--color-accent, #3b82f6);
+
+  /* Espacement interne dérivé de `space.stack`. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-stack, 8px);
+  padding-right: var(--space-stack, 8px);
+
+  /* Bordure et rayon dérivés des Semantic_Token. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-accent, #3b82f6);
+  border-radius: var(--radius-control, 4px);
+
+  cursor: pointer;
+}
+
+.ds-icon-button:hover {
+  background-color: var(--color-accent-hover, #2563eb);
+  border-color: var(--color-accent-hover, #2563eb);
+}
+
+/* État focus visible : contour piloté par var() (Ref. 6.3). */
+.ds-icon-button:focus-visible {
+  outline-width: var(--border-width, 2px);
+  outline-style: solid;
+  outline-color: var(--color-accent, #3b82f6);
+  outline-offset: var(--space-stack, 8px);
+}
+
+/* Dimensionne l'icône (SVG ou glyphe) relativement à la typographie. */
+.ds-icon-button__icon {
+  width: var(--typography-body-font-size, 16px);
+  height: var(--typography-body-font-size, 16px);
+  fill: currentColor;
+}
+
+/* Variante secondaire : icône accentuée sur surface claire. */
+.ds-icon-button--secondary {
+  color: var(--color-accent, #3b82f6);
+  background-color: var(--color-surface, #ffffff);
+  border-color: var(--color-accent, #3b82f6);
+}
+
+.ds-icon-button--secondary:hover {
+  color: var(--color-accent-hover, #2563eb);
+  background-color: var(--color-surface-muted, #f9fafb);
+  border-color: var(--color-accent-hover, #2563eb);
+}
+
+/* ------------------------------------------------------------------ */
+/* Textarea                                                            */
+/* ------------------------------------------------------------------ */
+
+.ds-textarea {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+
+  /* Couleurs de texte et de surface. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  /* Espacement interne dérivé des Semantic_Token d'espacement. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure et rayon dérivés des Semantic_Token. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-text-secondary, #374151);
+  border-radius: var(--radius-control, 4px);
+
+  resize: vertical;
+}
+
+.ds-textarea::placeholder {
+  color: var(--color-text-secondary, #374151);
+}
+
+.ds-textarea:focus {
+  outline-width: var(--border-width, 2px);
+  outline-style: solid;
+  outline-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #3b82f6);
+}
+
+.ds-textarea:disabled {
+  color: var(--color-text-secondary, #374151);
+  background-color: var(--color-surface-muted, #f9fafb);
+}
+
+/* ------------------------------------------------------------------ */
+/* Badge                                                               */
+/* ------------------------------------------------------------------ */
+
+.ds-badge {
+  display: inline-block;
+
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+
+  /* Couleurs : texte atténué sur surface atténuée par défaut. */
+  color: var(--color-text-secondary, #374151);
+  background-color: var(--color-surface-muted, #f9fafb);
+
+  /* Espacement interne compact. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure fine et rayon de contrôle. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-surface-muted, #f9fafb);
+  border-radius: var(--radius-control, 4px);
+}
+
+.ds-badge--accent {
+  color: var(--color-surface, #ffffff);
+  background-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #3b82f6);
+}
+
+/* ------------------------------------------------------------------ */
+/* Avatar                                                              */
+/* ------------------------------------------------------------------ */
+
+.ds-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* Typographie des initiales de repli, dérivée de `typography.heading`. */
+  font-family: var(--typography-heading-font-family, system-ui, sans-serif);
+  font-size: var(--typography-heading-font-size, 24px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-heading-line-height, 1.25);
+
+  /* Couleurs : initiales de texte sur surface atténuée. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface-muted, #f9fafb);
+
+  /* Dimensions dérivées de l'espacement (carré). */
+  width: var(--space-6, 24px);
+  height: var(--space-6, 24px);
+
+  /* Bordure et rayon de conteneur (cercle approché par un grand rayon). */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-surface-muted, #f9fafb);
+  border-radius: var(--radius-container, 8px);
+}
+
+.ds-avatar--circle {
+  border-radius: var(--radius-round, 9999px);
+}
+
+.ds-avatar__image {
+  width: var(--size-full, 100%);
+  height: var(--size-full, 100%);
+  object-fit: cover;
+}
+
+/* ------------------------------------------------------------------ */
+/* Link                                                                */
+/* ------------------------------------------------------------------ */
+
+.ds-link {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+
+  /* Couleur d'accent, texte souligné. */
+  color: var(--color-accent, #3b82f6);
+
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+
+.ds-link:hover {
+  color: var(--color-accent-hover, #2563eb);
+}
+
+.ds-link:focus {
+  outline-width: var(--border-width, 2px);
+  outline-style: solid;
+  outline-color: var(--color-accent, #3b82f6);
+}
+
+.ds-link--muted {
+  color: var(--color-text-secondary, #374151);
+}
+
+.ds-link--muted:hover {
+  color: var(--color-text-primary, #111827);
+}
+
+/* ------------------------------------------------------------------ */
+/* ProjectCard                                                         */
+/* ------------------------------------------------------------------ */
+
+.ds-project-card {
+  display: flex;
+  flex-direction: column;
+
+  /* Surface et texte dérivés des Semantic_Token. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  /* Espacement interne large dérivé de `space.inset`. */
+  padding-top: var(--space-inset, 16px);
+  padding-bottom: var(--space-inset, 16px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+  gap: var(--space-stack, 8px);
+
+  /* Bordure, rayon de conteneur et ombre surélevée. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-surface-muted, #f9fafb);
+  border-radius: var(--radius-container, 8px);
+  box-shadow: var(--shadow-raised, 0px 4px 8px 0px #00000026);
+}
+
+.ds-project-card__media {
+  width: var(--size-full, 100%);
+  object-fit: cover;
+  border-radius: var(--radius-control, 4px);
+}
+
+.ds-project-card__title {
+  /* Typographie dérivée de `typography.heading`. */
+  font-family: var(--typography-heading-font-family, system-ui, sans-serif);
+  font-size: var(--typography-heading-font-size, 24px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-heading-line-height, 1.25);
+  color: var(--color-text-primary, #111827);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+}
+
+.ds-project-card__description {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+  color: var(--color-text-secondary, #374151);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+}
+
+.ds-project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-stack, 8px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.ds-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  /* Surface et texte dérivés des Semantic_Token. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  /* Espacement interne généreux dérivé de `space.inset` et vertical `space.stack`. */
+  padding-top: var(--space-inset, 16px);
+  padding-bottom: var(--space-inset, 16px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+  gap: var(--space-stack, 8px);
+
+  /* Rayon de conteneur pour un bloc d'en-tête. */
+  border-radius: var(--radius-container, 8px);
+}
+
+.ds-hero__title {
+  /* Typographie dérivée de `typography.heading`. */
+  font-family: var(--typography-heading-font-family, system-ui, sans-serif);
+  font-size: var(--typography-heading-font-size, 24px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-heading-line-height, 1.25);
+  color: var(--color-text-primary, #111827);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+}
+
+.ds-hero__subtitle {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+  color: var(--color-text-secondary, #374151);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-stack, 8px);
+}
+
+.ds-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-stack, 8px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.ds-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack, 8px);
+
+  /* Surface atténuée et texte secondaire dérivés des Semantic_Token. */
+  color: var(--color-text-secondary, #374151);
+  background-color: var(--color-surface-muted, #f9fafb);
+
+  /* Espacement interne dérivé de `space.inset`. */
+  padding-top: var(--space-inset, 16px);
+  padding-bottom: var(--space-inset, 16px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure supérieure de séparation. */
+  border-top-width: var(--border-width, 1px);
+  border-top-style: solid;
+  border-top-color: var(--color-surface-muted, #f9fafb);
+}
+
+.ds-footer__text {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+  color: var(--color-text-secondary, #374151);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+}
+
+.ds-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inset, 16px);
+}
+
+/* ================================================================== */
+/* Navbar (Task 16.3)                                                  */
+/* ------------------------------------------------------------------ */
+/*
+ * Navbar — barre de navigation framework-agnostique (Ref. 6.1, 6.2).
+ *
+ * RENDU DE BASE SANS JS (Ref. 6.2, 8.3) : la navigation complète et tous les
+ * liens sont visibles et accessibles sans JavaScript. Le menu
+ * (`.ds-navbar__menu`) est affiché par défaut ; le bouton `.ds-navbar__toggle`
+ * n'est visible qu'en « petite largeur », où le menu demeure néanmoins
+ * consultable (fallback : il reste dans le flux et atteignable). Le JavaScript
+ * d'amélioration progressive (tâche 17) ne fait que BASCULER le menu ; en son
+ * absence, le contenu reste accessible dans l'état sémantique du balisage.
+ *
+ * ÉTAT SÉMANTIQUE (Ref. 6.6) : le conteneur racine porte l'attribut de
+ * comportement `data-ds-navbar`. Le bouton `.ds-navbar__toggle` porte
+ * `aria-controls` (id du menu), `aria-expanded` (false par défaut) et un
+ * `aria-label`. La classe d'état pilotée par la tâche 17 est exprimée via
+ * `aria-expanded` sur le toggle ET `data-state="open|closed"` sur la navbar :
+ * le CSS ci-dessous ne masque le menu que lorsque le JS a pris le relais
+ * (`[data-ds-navbar][data-state] ...`), garantissant un fallback accessible.
+ *
+ * Toutes les valeurs de couleur, typographie, espacement, bordure et rayon
+ * dérivent des variables CSS avec repli `var(--x, <fallback>)` (Ref. 6.3, 6.4).
+ */
+
+.ds-navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  /* Couleurs de surface et de texte dérivées des Semantic_Token. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  /* Espacement interne dérivé des Semantic_Token d'espacement. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Colonne vertébrale visuelle : bordure basse et ombre surélevée. */
+  border-bottom-width: var(--border-width, 1px);
+  border-bottom-style: solid;
+  border-bottom-color: var(--color-surface-muted, #f9fafb);
+  box-shadow: var(--shadow-raised, 0px 4px 8px 0px #00000026);
+}
+
+.ds-navbar__brand {
+  /* Typographie dérivée de `typography.heading`. */
+  font-family: var(--typography-heading-font-family, system-ui, sans-serif);
+  font-size: var(--typography-heading-font-size, 24px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-heading-line-height, 1.25);
+  color: var(--color-text-primary, #111827);
+  text-decoration: none;
+
+  margin-right: var(--space-inset, 16px);
+}
+
+/*
+ * Toggle — masqué par défaut (rendu « large » : le menu complet est visible).
+ * Rendu visible uniquement en petite largeur (voir media query ci-dessous) où
+ * il devient le point d'ancrage de l'amélioration progressive.
+ */
+.ds-navbar__toggle {
+  display: none;
+
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  line-height: var(--typography-body-line-height, 1.5);
+
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-text-secondary, #374151);
+  border-radius: var(--radius-control, 4px);
+
+  cursor: pointer;
+}
+
+.ds-navbar__menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  /* Liste de navigation sans puces, sans marge. */
+  list-style: none;
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+  margin-left: auto;
+  padding-left: var(--space-zero, 0);
+
+  /* Espacement horizontal entre items dérivé de `space.inset`. */
+  gap: var(--space-inset, 16px);
+}
+
+.ds-navbar__item {
+  display: flex;
+  align-items: center;
+}
+
+.ds-navbar__link {
+  /* Typographie dérivée de `typography.body`. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+
+  color: var(--color-text-secondary, #374151);
+  text-decoration: none;
+
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-stack, 8px);
+  padding-right: var(--space-stack, 8px);
+
+  border-radius: var(--radius-control, 4px);
+}
+
+.ds-navbar__link:hover {
+  color: var(--color-accent-hover, #2563eb);
+}
+
+.ds-navbar__link:focus {
+  outline-width: var(--border-width, 2px);
+  outline-style: solid;
+  outline-color: var(--color-accent, #3b82f6);
+}
+
+/*
+ * Amélioration progressive (tâche 17) : le CLASSEUR d'état ne s'applique QUE
+ * lorsqu'un `data-state` est présent — c'est-à-dire après que le JS a pris en
+ * charge le composant. Sans JS, aucun `data-state` n'est écrit, le menu reste
+ * donc affiché (fallback accessible, Ref. 8.3).
+ *
+ * Le JS de la tâche 17 doit :
+ *   - lire/écrire `data-state="open" | "closed"` sur l'élément `[data-ds-navbar]`
+ *   - maintenir `aria-expanded` sur `.ds-navbar__toggle` en miroir de l'état.
+ */
+@media (max-width: 48rem) {
+  .ds-navbar__toggle {
+    display: inline-block;
+  }
+
+  /* Menu masqué uniquement si le JS a activé le composant et l'a fermé. */
+  [data-ds-navbar][data-state="closed"] .ds-navbar__menu {
+    display: none;
+  }
+
+  /* État ouvert : pile verticale occupant toute la largeur. */
+  [data-ds-navbar][data-state="open"] .ds-navbar__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-basis: 100%;
+    margin-left: var(--space-zero, 0);
+    margin-top: var(--space-stack, 8px);
+  }
+}
+/* ------------------------------------------------------------------ */
+/* Fin Navbar (Task 16.3)                                              */
+/* ================================================================== */
+
+/* ================================================================== */
+/* StickerTag (Tâche 16.5)                                             */
+/* ------------------------------------------------------------------ */
+/*
+ * StickerTag — étiquette « autocollant » façon Dymo/atelier (Ref. 6.1, 6.2).
+ *
+ * Composant statique en CSS pur, sans JavaScript requis pour le rendu. Il
+ * matérialise la direction artistique « bricoleur open source » : un badge
+ * compact, arrondi, légèrement épais, destiné aux centres d'intérêt et aux
+ * mots-clés (#soudure, #self-hosting, …). L'inclinaison décorative est obtenue
+ * via des modificateurs structurels (`transform`), non thématisables.
+ *
+ * Toutes les valeurs de couleur, typographie, espacement, bordure et rayon
+ * dérivent des variables CSS avec repli `var(--x, <fallback>)` (Ref. 6.3, 6.4) ;
+ * le thème actif est reflété par la redéfinition de ces variables, sans
+ * rechargement (Ref. 6.5). Noms alignés sur `toCssVarName` (emitters/css.ts).
+ */
+
+.ds-sticker-tag {
+  display: inline-block;
+
+  /* Typographie dérivée de `typography.body` (compacte, lisible). */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-body-line-height, 1.5);
+  letter-spacing: var(--space-zero, 0);
+
+  /* Couleurs : accent sur surface atténuée, rendu « étiquette collée ». */
+  color: var(--color-accent, #3b82f6);
+  background-color: var(--color-surface-muted, #f9fafb);
+
+  /* Espacement interne compact. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure marquée et rayon « pilule » pour l'effet sticker. */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-accent, #3b82f6);
+  border-radius: var(--radius-round, 9999px);
+}
+
+/* Variante pleine : accent inversé (autocollant « plein »). */
+.ds-sticker-tag--accent {
+  color: var(--color-surface, #ffffff);
+  background-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #3b82f6);
+}
+
+/*
+ * Variante « rouille » : accent secondaire ambre, pour varier la planche de
+ * stickers et renforcer la DA atelier. Contour ambre sur surface atténuée.
+ */
+.ds-sticker-tag--rust {
+  color: var(--color-accent-secondary, #b45309);
+  background-color: var(--color-surface-muted, #f9fafb);
+  border-color: var(--color-accent-secondary, #b45309);
+}
+
+.ds-sticker-tag--rust:hover {
+  color: var(--color-surface, #ffffff);
+  background-color: var(--color-accent-secondary, #b45309);
+  border-color: var(--color-accent-secondary, #b45309);
+}
+
+/*
+ * Inclinaisons décoratives (mots-clés structurels, non thématisables) : donnent
+ * le rendu « collé de travers » de la planche de stickers. Purement visuel ;
+ * sans effet sur le contenu ni l'accessibilité.
+ */
+.ds-sticker-tag--tilt-left {
+  transform: rotate(-4deg);
+}
+
+.ds-sticker-tag--tilt-right {
+  transform: rotate(4deg);
+}
+
+/* ================================================================== */
+/* CommitItem (Tâche 16.5)                                             */
+/* ------------------------------------------------------------------ */
+/*
+ * CommitItem — ligne de « journal de bord » façon entrée de log, pour présenter
+ * un travail/projet avec du caractère sans recourir à une fenêtre terminal
+ * (Ref. 6.1, 6.2). Composant statique, CSS pur, sans JavaScript.
+ *
+ * Structure attendue (voir index.html) :
+ *   .ds-commit-item
+ *     .ds-commit-item__hash     (identifiant court, mono/accentué)
+ *     .ds-commit-item__label    (intitulé principal)
+ *     .ds-commit-item__meta     (métadonnée secondaire, ex. catégorie)
+ *
+ * Toutes les valeurs thématisables dérivent de `var(--x, <fallback>)`.
+ */
+
+.ds-commit-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-inset, 16px);
+
+  /* Surface et texte dérivés des Semantic_Token. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface, #ffffff);
+
+  /* Espacement interne et séparation basse. */
+  padding-top: var(--space-stack, 8px);
+  padding-bottom: var(--space-stack, 8px);
+  padding-left: var(--space-zero, 0);
+  padding-right: var(--space-zero, 0);
+
+  border-bottom-width: var(--border-width, 1px);
+  border-bottom-style: solid;
+  border-bottom-color: var(--color-surface-muted, #f9fafb);
+}
+
+.ds-commit-item__hash {
+  /* Identifiant court : monospace + accent secondaire (façon hash de commit). */
+  font-family: var(--typography-mono-font-family, ui-monospace, monospace);
+  font-size: var(--typography-mono-font-size, 14px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-mono-line-height, 1.5);
+  color: var(--color-accent-secondary, #b45309);
+}
+
+.ds-commit-item__label {
+  /* Intitulé principal : typographie de corps, poids fort. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-body-line-height, 1.5);
+  color: var(--color-text-primary, #111827);
+}
+
+.ds-commit-item__meta {
+  /* Métadonnée secondaire : monospace atténué, poussé en fin de ligne. */
+  font-family: var(--typography-mono-font-family, ui-monospace, monospace);
+  font-size: var(--typography-mono-font-size, 14px);
+  font-weight: var(--typography-mono-font-weight, 400);
+  line-height: var(--typography-mono-line-height, 1.5);
+  color: var(--color-text-secondary, #374151);
+  margin-left: auto;
+}
+
+/* ================================================================== */
+/* NoteCard (Tâche 16.5)                                               */
+/* ------------------------------------------------------------------ */
+/*
+ * NoteCard — fiche « bristol/post-it » épinglée, pour la section atelier
+ * (« en ce moment je bidouille … ») (Ref. 6.1, 6.2). Composant statique, CSS
+ * pur, sans JavaScript. La punaise décorative est un pseudo-élément sans
+ * sémantique (purement visuel, n'affecte pas l'accessibilité).
+ *
+ * Structure attendue (voir index.html) :
+ *   .ds-note-card
+ *     .ds-note-card__title
+ *     .ds-note-card__body
+ *
+ * Toutes les valeurs thématisables dérivent de `var(--x, <fallback>)`.
+ */
+
+.ds-note-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack, 8px);
+
+  /* Surface atténuée « papier » et texte principal. */
+  color: var(--color-text-primary, #111827);
+  background-color: var(--color-surface-muted, #f9fafb);
+
+  /* Espacement interne généreux. */
+  padding-top: var(--space-inset, 16px);
+  padding-bottom: var(--space-inset, 16px);
+  padding-left: var(--space-inset, 16px);
+  padding-right: var(--space-inset, 16px);
+
+  /* Bordure fine et rayon de conteneur, ombre surélevée (fiche posée). */
+  border-width: var(--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-surface-muted, #f9fafb);
+  border-radius: var(--radius-container, 8px);
+  box-shadow: var(--shadow-raised, 0px 4px 8px 0px #00000026);
+}
+
+/* Punaise décorative : pastille accentuée, sans contenu sémantique. */
+.ds-note-card::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: var(--space-4, 16px);
+  height: var(--space-4, 16px);
+
+  background-color: var(--color-accent, #3b82f6);
+  border-radius: var(--radius-round, 9999px);
+}
+
+.ds-note-card__title {
+  /* Titre : typographie d'en-tête. */
+  font-family: var(--typography-heading-font-family, system-ui, sans-serif);
+  font-size: var(--typography-heading-font-size, 24px);
+  font-weight: var(--typography-heading-font-weight, 700);
+  line-height: var(--typography-heading-line-height, 1.25);
+  color: var(--color-text-primary, #111827);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+}
+
+.ds-note-card__body {
+  /* Corps : typographie de corps, texte atténué. */
+  font-family: var(--typography-body-font-family, system-ui, sans-serif);
+  font-size: var(--typography-body-font-size, 16px);
+  font-weight: var(--typography-body-font-weight, 400);
+  line-height: var(--typography-body-line-height, 1.5);
+  color: var(--color-text-secondary, #374151);
+
+  margin-top: var(--space-zero, 0);
+  margin-bottom: var(--space-zero, 0);
+}
+
+/* Inclinaison décorative (structurelle) pour l'effet « épinglé de travers ». */
+.ds-note-card--tilt {
+  transform: rotate(-2deg);
+}
+
+/* ================================================================== */
+/* Micro-interactions & plaisir de navigation (Tâche 18)              */
+/* ------------------------------------------------------------------ */
+/*
+ * Couche d'INTERACTIONS : transitions douces, survols « vivants » et états
+ * focus animés. Objectif DA : une navigation tactile et agréable, sans trahir
+ * l'accessibilité ni le rendu sans JS.
+ *
+ * PRINCIPES
+ *  - Progressive enhancement : ces règles n'ajoutent que du mouvement/retour
+ *    visuel ; le contenu et la navigation restent identiques sans elles.
+ *  - Toutes les durées/distances/couleurs restent pilotées par `var(--…)` quand
+ *    elles relèvent d'une catégorie thématisable. Les `transition`, `transform`
+ *    et `will-change` sont structurels (non thématisables), donc en littéral.
+ *  - `prefers-reduced-motion: reduce` neutralise animations et transitions
+ *    (bloc dédié en fin de section).
+ *
+ * Les durées d'animation ne sont PAS des tokens existants : on les exprime via
+ * des variables dédiées `--motion-*` DÉFINIES ICI avec repli, de sorte que le
+ * consommateur puisse les surcharger sans dépendre de l'émetteur de tokens.
+ */
+
+:root {
+  --motion-duration-fast: 120ms;
+  --motion-duration-base: 200ms;
+  --motion-duration-slow: 420ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-lift: -2px;
+}
+
+/* --- Boutons : retour tactile au survol et à l'appui ---------------------- */
+.ds-button,
+.ds-icon-button {
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease),
+    border-color var(--motion-duration-fast) var(--motion-ease),
+    color var(--motion-duration-fast) var(--motion-ease),
+    transform var(--motion-duration-fast) var(--motion-ease),
+    box-shadow var(--motion-duration-base) var(--motion-ease);
+}
+
+.ds-button:hover,
+.ds-icon-button:hover {
+  transform: translateY(var(--motion-lift));
+  box-shadow: var(--shadow-raised, 0px 4px 8px 0px #00000026);
+}
+
+/* Appui : la surface « s'enfonce » brièvement (retour physique). */
+.ds-button:active,
+.ds-icon-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Focus clavier homogène et animé (anneau d'accent). */
+.ds-button:focus-visible,
+.ds-icon-button:focus-visible {
+  outline-width: var(--border-width, 2px);
+  outline-style: solid;
+  outline-color: var(--color-accent, #15803d);
+  outline-offset: var(--space-stack, 8px);
+}
+
+/* --- Liens : soulignement animé qui « pousse » depuis la gauche ----------- */
+.ds-link {
+  transition: color var(--motion-duration-fast) var(--motion-ease);
+}
+
+.ds-navbar__link {
+  position: relative;
+  transition: color var(--motion-duration-fast) var(--motion-ease);
+}
+
+/*
+ * Soulignement animé décoratif : pseudo-élément qui s'étire au survol/focus.
+ * `background-color` thématisé par l'accent ; `transform`/`transition` sont
+ * structurels. Décoratif : n'affecte ni le contenu ni la sémantique.
+ */
+.ds-navbar__link::after {
+  content: "";
+  position: absolute;
+  left: var(--space-stack, 8px);
+  right: var(--space-stack, 8px);
+  bottom: var(--space-stack, 8px);
+  height: var(--border-width, 1px);
+  background-color: var(--color-accent, #15803d);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--motion-duration-base) var(--motion-ease);
+}
+
+.ds-navbar__link:hover::after,
+.ds-navbar__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* --- Cartes : élévation et surlignage d'accent au survol ------------------ */
+.ds-card,
+.ds-project-card,
+.ds-note-card {
+  transition:
+    transform var(--motion-duration-base) var(--motion-ease),
+    box-shadow var(--motion-duration-base) var(--motion-ease),
+    border-color var(--motion-duration-base) var(--motion-ease);
+}
+
+.ds-card:hover,
+.ds-project-card:hover {
+  transform: translateY(var(--motion-lift));
+  border-color: var(--color-accent, #15803d);
+  box-shadow: var(--shadow-raised, 0px 4px 8px 0px #00000026);
+}
+
+/* --- StickerTag : léger « pop » au survol (sensation d'autocollant) ------- */
+.ds-sticker-tag {
+  transition:
+    transform var(--motion-duration-fast) var(--motion-ease),
+    background-color var(--motion-duration-fast) var(--motion-ease),
+    color var(--motion-duration-fast) var(--motion-ease);
+}
+
+.ds-sticker-tag:not(.ds-sticker-tag--rust):hover {
+  color: var(--color-surface, #ffffff);
+  background-color: var(--color-accent, #15803d);
+  border-color: var(--color-accent, #15803d);
+}
+
+/* --- CommitItem : glisse vers la droite et s'accentue au survol ----------- */
+.ds-commit-item {
+  text-decoration: none;
+  transition:
+    transform var(--motion-duration-base) var(--motion-ease),
+    border-color var(--motion-duration-base) var(--motion-ease),
+    background-color var(--motion-duration-base) var(--motion-ease);
+}
+
+.ds-commit-item:hover {
+  transform: translateX(var(--space-stack, 8px));
+  border-bottom-color: var(--color-accent, #15803d);
+}
+
+.ds-commit-item:hover .ds-commit-item__label {
+  color: var(--color-accent, #15803d);
+}
+
+/* ------------------------------------------------------------------ */
+/* Behavior `reveal` (data-ds-reveal) — révélation au défilement       */
+/* ------------------------------------------------------------------ */
+/*
+ * État de base SANS JS (Ref. 8.3) : un élément `[data-ds-reveal]` est
+ * PLEINEMENT visible par défaut. Le JavaScript n'ajoute l'état masqué initial
+ * (`data-reveal-state="hidden"`) QUE lorsqu'il prend le composant en charge ;
+ * il bascule ensuite vers `visible` à l'entrée dans le viewport. Ainsi, sans JS
+ * ou sans IntersectionObserver, rien n'est caché.
+ */
+[data-ds-reveal][data-reveal-state="hidden"] {
+  opacity: 0;
+  transform: translateY(var(--space-6, 24px));
+}
+
+[data-ds-reveal][data-reveal-state="visible"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-ds-reveal][data-reveal-state] {
+  transition:
+    opacity var(--motion-duration-slow) var(--motion-ease),
+    transform var(--motion-duration-slow) var(--motion-ease);
+}
+
+/* ------------------------------------------------------------------ */
+/* Behavior `tilt` (data-ds-tilt) — inclinaison vers le curseur        */
+/* ------------------------------------------------------------------ */
+/*
+ * Le JS écrit les variables `--ds-tilt-x` / `--ds-tilt-y` (en degrés) sur
+ * l'élément en fonction de la position du curseur. Sans JS, ces variables
+ * valent 0 (repli) : aucune transformation. `transform-style`/`perspective`
+ * sont structurels.
+ */
+[data-ds-tilt] {
+  transform: perspective(600px)
+    rotateX(var(--ds-tilt-x, 0deg))
+    rotateY(var(--ds-tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform var(--motion-duration-fast) var(--motion-ease);
+}
+
+/* ------------------------------------------------------------------ */
+/* Respect de prefers-reduced-motion (accessibilité)                   */
+/* ------------------------------------------------------------------ */
+/*
+ * Neutralise mouvements et transitions pour les utilisateurs qui le demandent.
+ * Le contenu reste visible (les éléments `reveal` sont forcés en état visible).
+ */
+@media (prefers-reduced-motion: reduce) {
+  .ds-button,
+  .ds-icon-button,
+  .ds-link,
+  .ds-navbar__link,
+  .ds-navbar__link::after,
+  .ds-card,
+  .ds-project-card,
+  .ds-note-card,
+  .ds-sticker-tag,
+  .ds-commit-item,
+  [data-ds-reveal][data-reveal-state],
+  [data-ds-tilt] {
+    transition: none;
+  }
+
+  .ds-button:hover,
+  .ds-icon-button:hover,
+  .ds-card:hover,
+  .ds-project-card:hover,
+  .ds-commit-item:hover,
+  [data-ds-tilt] {
+    transform: none;
+  }
+
+  [data-ds-reveal][data-reveal-state="hidden"] {
+    opacity: 1;
+    transform: none;
+  }
+}

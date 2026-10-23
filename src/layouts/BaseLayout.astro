@@ -1,0 +1,65 @@
+---
+// Layout de base du portfolio.
+// Consomme les artefacts du design system dans l'ordre recommandé :
+//   1. fonts.css  — @font-face JetBrains Mono (OFL, auto-hébergée)
+//   2. tokens.css — variables CSS (thème clair sur :root, sombre sur [data-theme="dark"])
+//   3. components.css — composants ds-* (HTML/CSS pur)
+// Le JS de comportements (ds-components.js) est chargé en fin de <body> en
+// amélioration progressive (navbar, reveal, tilt via data-ds-*).
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Portfolio de Mathéo Nguyen, développeur backend spécialisé en systèmes de messagerie d'entreprise et architecture microservices.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Design system : polices, tokens, composants -->
+    <link rel="stylesheet" href="/ds/fonts.css" />
+    <link rel="stylesheet" href="/ds/tokens.css" />
+    <link rel="stylesheet" href="/ds/components.css" />
+    <link rel="stylesheet" href="/styles/site.css" />
+
+    <!--
+      Thème initial appliqué avant le rendu pour éviter tout flash :
+      lit la préférence stockée, sinon suit prefers-color-scheme.
+    -->
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia(
+            '(prefers-color-scheme: dark)'
+          ).matches;
+          const theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (_) {
+          /* no-op : le thème clair par défaut (:root) s'applique */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+
+    <!-- Comportements du design system (amélioration progressive) -->
+    <script src="/ds/ds-components.js" defer></script>
+  </body>
+</html>
