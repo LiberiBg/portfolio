@@ -1,0 +1,43 @@
+name: CI
+
+# Valide chaque Pull Request et chaque push sur main :
+# - vérification de types / diagnostics Astro (astro check)
+# - build de production (astro build)
+# Objectif : empêcher de merger du code qui casse le typecheck ou le build.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Annule les exécutions redondantes sur une même branche/PR.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Check & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type & diagnostics check
+        run: npm run check
+
+      - name: Build
+        run: npm run build
