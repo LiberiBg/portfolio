@@ -1,43 +1,66 @@
 ---
-// Navbar du site : réutilise le composant ds-navbar du design system.
-// data-ds-navbar active la bascule mobile (amélioration progressive).
-// Le bouton de thème réutilise ds-icon-button.
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang];
+
+// Cible du sélecteur de langue : chemin de l'autre langue.
+const otherLang: Lang = lang === 'fr' ? 'en' : 'fr';
+const otherHref = otherLang === 'fr' ? '/' : '/en/';
+const homeHref = lang === 'fr' ? '/' : '/en/';
 ---
 
 <header class="site-header">
-  <nav class="ds-navbar" data-ds-navbar aria-label="Navigation principale">
-    <a class="ds-navbar__brand" href="#top">matheo.ngn</a>
+  <nav class="ds-navbar" data-ds-navbar aria-label={t.nav.menu}>
+    <a class="ds-navbar__brand" href={homeHref + '#top'}>matheo.ngn</a>
     <button
       type="button"
       class="ds-navbar__toggle"
       aria-controls="ds-navbar-menu-primary"
       aria-expanded="false"
-      aria-label="Ouvrir le menu de navigation"
+      aria-label={t.nav.menu}
     >
-      Menu
+      {t.nav.menu}
     </button>
     <ul class="ds-navbar__menu" id="ds-navbar-menu-primary">
       <li class="ds-navbar__item">
-        <a class="ds-navbar__link" href="#a-propos">À propos</a>
+        <a class="ds-navbar__link" href="#a-propos">{t.nav.about}</a>
       </li>
       <li class="ds-navbar__item">
-        <a class="ds-navbar__link" href="#experiences">Expériences</a>
+        <a class="ds-navbar__link" href="#formation">{t.nav.education}</a>
       </li>
       <li class="ds-navbar__item">
-        <a class="ds-navbar__link" href="#competences">Compétences</a>
+        <a class="ds-navbar__link" href="#experiences">{t.nav.experience}</a>
       </li>
       <li class="ds-navbar__item">
-        <a class="ds-navbar__link" href="#projets">Projets</a>
+        <a class="ds-navbar__link" href="#competences">{t.nav.skills}</a>
       </li>
       <li class="ds-navbar__item">
-        <a class="ds-navbar__link" href="#contact">Contact</a>
+        <a class="ds-navbar__link" href="#projets">{t.nav.projects}</a>
+      </li>
+      <li class="ds-navbar__item">
+        <a class="ds-navbar__link" href="#contact">{t.nav.contact}</a>
+      </li>
+      <li class="ds-navbar__item">
+        <a
+          class="ds-link ds-link--muted lang-switch"
+          href={otherHref}
+          hreflang={otherLang}
+          aria-label={`${t.nav.langLabel}: ${otherLang.toUpperCase()}`}
+        >
+          {otherLang.toUpperCase()}
+        </a>
       </li>
       <li class="ds-navbar__item">
         <button
           type="button"
           id="theme-toggle"
           class="ds-icon-button ds-icon-button--secondary theme-toggle"
-          aria-label="Basculer le thème clair/sombre"
+          aria-label={t.nav.themeToggle}
         >
           <svg
             class="ds-icon-button__icon"
@@ -56,7 +79,6 @@
 </header>
 
 <script is:inline>
-  // Bascule de thème : met à jour data-theme sur <html> et persiste le choix.
   (function () {
     const btn = document.getElementById('theme-toggle');
     if (!btn) return;

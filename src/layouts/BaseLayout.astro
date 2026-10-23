@@ -9,16 +9,18 @@
 export interface Props {
   title: string;
   description?: string;
+  htmlLang?: string;
 }
 
 const {
   title,
   description = "Portfolio de Mathéo Nguyen, développeur backend spécialisé en systèmes de messagerie d'entreprise et architecture microservices.",
+  htmlLang = 'fr',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +32,11 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+
+    <!-- Alternance de langue (SEO) -->
+    <link rel="alternate" hreflang="fr" href="/" />
+    <link rel="alternate" hreflang="en" href="/en/" />
+    <link rel="alternate" hreflang="x-default" href="/" />
 
     <!-- Design system : polices, tokens, composants -->
     <link rel="stylesheet" href="/ds/fonts.css" />

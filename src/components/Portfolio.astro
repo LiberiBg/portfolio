@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from './Navbar.astro';
+import { content, FORMSPREE_ID, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang];
+const formspreeAction = `https://formspree.io/f/${FORMSPREE_ID}`;
+const year = new Date().getFullYear();
+---
+
+<BaseLayout title={t.title} description={t.description} htmlLang={t.htmlLang}>
+  <a class="skip-link" href="#main">{t.skip}</a>
+  <Navbar lang={lang} />
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="top" class="hero-wrap">
+      <div class="container">
+        <section class="ds-hero" data-ds-reveal>
+          <h1 class="ds-hero__title">{t.hero.title}</h1>
+          <p class="ds-hero__subtitle">{t.hero.subtitle}</p>
+          <div class="ds-hero__actions">
+            <a class="ds-button" href="#contact">{t.hero.ctaContact}</a>
+            <a class="ds-link ds-link--muted" href="#projets">{t.hero.ctaProjects}</a>
+          </div>
+          <div class="hero-meta">
+            <span class="ds-sticker-tag ds-sticker-tag--tilt-left">#java</span>
+            <span class="ds-sticker-tag ds-sticker-tag--accent">#kafka</span>
+            <span class="ds-sticker-tag ds-sticker-tag--rust ds-sticker-tag--tilt-right">#self-hosting</span>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- À PROPOS / ABOUT -->
+    <section id="a-propos" class="section">
+      <div class="container">
+        <h2 class="section__title">{t.about.title}</h2>
+        <p class="section__lead">{t.about.lead}</p>
+      </div>
+    </section>
+
+    <!-- FORMATION / EDUCATION -->
+    <section id="formation" class="section">
+      <div class="container">
+        <h2 class="section__title">{t.educationSection.title}</h2>
+        <div class="grid">
+          {t.education.map((edu) => (
+            <article class="ds-card">
+              <h3 class="ds-card__title">{edu.title}</h3>
+              <p class="ds-card__body">
+                <span class="timeline__meta">{edu.period}</span>
+                <br />
+                {edu.desc}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPÉRIENCES / EXPERIENCE -->
+    <section id="experiences" class="section">
+      <div class="container">
+        <h2 class="section__title">{t.experienceSection.title}</h2>
+        <div class="timeline">
+          {t.experiences.map((exp) => (
+            <article class="ds-card timeline__item" data-ds-reveal>
+              <span class="timeline__meta">
+                {exp.period} · {exp.org}, {exp.place}
+              </span>
+              <h3 class="timeline__role ds-card__title">{exp.role}</h3>
+              <ul class="timeline__list">
+                {exp.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+              <div class="skills__tags">
+                {exp.tags.map((tag) => (
+                  <span class="ds-badge ds-badge--accent">{tag}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPÉTENCES / SKILLS -->
+    <section id="competences" class="section">
+      <div class="container">
+        <h2 class="section__title">{t.skillsSection.title}</h2>
+        <div class="skills">
+          {t.skills.map((s) => (
+            <article class="ds-card">
+              <p class="skills__group-title ds-card__title">{s.group}</p>
+              <div class="skills__tags">
+                {s.items.map((item) => (
+                  <span class="ds-badge">{item}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJETS / PROJECTS -->
+    <section id="projets" class="section">
+      <div class="container">
+        <h2 class="section__title">{t.projectsSection.title}</h2>
+        <div class="grid">
+          {t.projects.map((proj) => (
+            <article class="ds-project-card" data-ds-tilt>
+              <h3 class="ds-project-card__title">{proj.title}</h3>
+              <p class="ds-project-card__description">{proj.description}</p>
+              <div class="ds-project-card__tags">
+                {proj.tags.map((tag) => (
+                  <span class="ds-badge ds-badge--accent">{tag}</span>
+                ))}
+              </div>
+              {proj.href && (
+                <p>
+                  <a class="ds-link" href={proj.href} target="_blank" rel="noopener">
+                    {t.projectsSection.repoLink}
+                  </a>
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section__title">{t.contact.title}</h2>
+        <p class="section__lead">{t.contact.lead}</p>
+
+        <!--
+          Intégration Formspree en AJAX (@formspree/ajax). Le JS gère l'envoi
+          sans redirection + messages inline. Si le JS ne charge pas, le
+          couple action/method assure un POST classique (dégradation gracieuse).
+        -->
+        <form
+          id="contact-form"
+          class="contact-form"
+          action={formspreeAction}
+          method="POST"
+        >
+          <label>
+            {t.contact.name}
+            <input class="ds-input" type="text" name="name" autocomplete="name" required placeholder={t.contact.namePlaceholder} data-fs-field />
+          </label>
+          <label>
+            {t.contact.email}
+            <input class="ds-input" type="email" name="email" autocomplete="email" required placeholder={t.contact.emailPlaceholder} data-fs-field />
+            <span class="form-error" data-fs-error="email"></span>
+          </label>
+          <label>
+            {t.contact.message}
+            <textarea class="ds-textarea" name="message" rows="5" required placeholder={t.contact.messagePlaceholder} data-fs-field></textarea>
+            <span class="form-error" data-fs-error="message"></span>
+          </label>
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true" />
+          <div class="contact-form__actions">
+            <button class="ds-button" type="submit" data-fs-submit-btn>{t.contact.submit}</button>
+          </div>
+          <p class="form-success" data-fs-success role="status" hidden>{t.contact.success}</p>
+          <p class="form-error form-error--global" data-fs-error role="alert" hidden>{t.contact.error}</p>
+        </form>
+
+        <p class="contact-aside">
+          {t.contact.or}
+          <a href="mailto:matheo.ngn@gmail.com">matheo.ngn@gmail.com</a>
+          ·
+          <a href="https://www.linkedin.com/in/matheo-nguyen/" target="_blank" rel="noopener">LinkedIn</a>
+          ·
+          <a href="https://github.com/LiberiBg" target="_blank" rel="noopener">GitHub</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ds-footer">
+      <p class="ds-footer__text">© {year} Mathéo Nguyen · {t.footer}</p>
+      <nav class="ds-footer__links" aria-label={t.nav.menu}>
+        <a class="ds-link ds-link--muted" href="https://github.com/LiberiBg" target="_blank" rel="noopener">GitHub</a>
+        <a class="ds-link ds-link--muted" href="https://www.linkedin.com/in/matheo-nguyen/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="ds-link ds-link--muted" href="mailto:matheo.ngn@gmail.com">Email</a>
+      </nav>
+    </footer>
+  </main>
+
+  <!--
+    Formspree AJAX (@formspree/ajax) via CDN : envoi sans redirection, messages
+    inline gérés par les attributs data-fs-*. L'ID est injecté depuis la source
+    unique (content.ts) via define:vars. Chargé en amélioration progressive.
+  -->
+  <script define:vars={{ formId: FORMSPREE_ID }}>
+    window.formspree =
+      window.formspree ||
+      function () {
+        (formspree.q = formspree.q || []).push(arguments);
+      };
+    formspree('initForm', { formElement: '#contact-form', formId: formId });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+</BaseLayout>

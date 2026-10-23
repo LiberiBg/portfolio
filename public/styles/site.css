@@ -211,8 +211,105 @@ a {
   border: 0;
 }
 
+/* ------------------------------------------------------------------ */
+/* Correctifs d'alignement                                             */
+/* Le design system reste intact ; on ajuste uniquement la mise en     */
+/* page au niveau du site.                                             */
+/* ------------------------------------------------------------------ */
+
+/* Hero : bouton (avec padding) et lien texte doivent s'aligner sur la
+   même ligne, centrés verticalement. */
+.ds-hero__actions {
+  align-items: center;
+}
+/* Harmonise la hauteur du lien avec celle du bouton et centre le texte. */
+.ds-hero__actions .ds-button,
+.ds-hero__actions .ds-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  line-height: 1.2;
+}
+
+/* Project-cards : aligner tags + lien en bas de carte pour une grille
+   régulière quelle que soit la longueur de la description. */
+.ds-project-card {
+  height: 100%;
+}
+.ds-project-card__tags {
+  margin-top: auto;
+}
+.ds-project-card .ds-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--space-2, 8px);
+}
+
+/* Formulaire de contact : bouton et éventuel texte sur une ligne centrée. */
+.contact-form__actions .ds-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+}
+
+/* Cartes d'expérience : badges alignés en bas. */
+.timeline__item .skills__tags {
+  margin-top: var(--space-2, 8px);
+}
+
 @media (max-width: 640px) {
   .section {
     padding-block: var(--space-6, 24px);
   }
+  /* Sur mobile, empiler les actions du hero pleine largeur. */
+  .ds-hero__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .ds-hero__actions .ds-button,
+  .ds-hero__actions .ds-link {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Messages de feedback du formulaire (Formspree AJAX)                 */
+/* ------------------------------------------------------------------ */
+.form-success {
+  margin: 0;
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  border-radius: var(--radius-container, 8px);
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent, #15803d) 14%,
+    transparent
+  );
+  color: var(--color-accent, #15803d);
+  font-weight: 700;
+}
+
+.form-error {
+  display: block;
+  margin-top: var(--space-2, 8px);
+  color: var(--color-accent-secondary, #b45309);
+  font-size: var(--typography-mono-font-size, 14px);
+}
+.form-error--global {
+  margin: 0;
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  border-radius: var(--radius-container, 8px);
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent-secondary, #b45309) 12%,
+    transparent
+  );
+  font-weight: 700;
+}
+
+/* Champ invalide signalé par aria-invalid (posé par @formspree/ajax). */
+.ds-input[aria-invalid='true'],
+.ds-textarea[aria-invalid='true'] {
+  border-color: var(--color-accent-secondary, #b45309);
+  outline-color: var(--color-accent-secondary, #b45309);
 }
